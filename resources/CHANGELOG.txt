@@ -4,6 +4,7 @@
 
 --- v0.8.0 ----------------------------------------------------- ??/??/20?? ---
 
+FIX: Charset for CCSID 1145, according to http://www-01.ibm.com/software/globalization
 ADD: font size of keypad is configurable
 ADD: buttons to be shown in keypad are configurable
 ADD: izpack 5.x update and now create start menu shortcuts - Thanks to Justin Dearing (https://sourceforge.net/p/tn5250j/patches/11/)

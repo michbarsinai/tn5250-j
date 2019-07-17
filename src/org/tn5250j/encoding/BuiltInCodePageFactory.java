@@ -36,6 +36,7 @@ import org.tn5250j.encoding.builtin.CCSID1026;
 import org.tn5250j.encoding.builtin.CCSID1112;
 import org.tn5250j.encoding.builtin.CCSID1140;
 import org.tn5250j.encoding.builtin.CCSID1141;
+import org.tn5250j.encoding.builtin.CCSID1145;
 import org.tn5250j.encoding.builtin.CCSID1147;
 import org.tn5250j.encoding.builtin.CCSID1148;
 import org.tn5250j.encoding.builtin.CCSID273;
@@ -95,6 +96,7 @@ import org.tn5250j.tools.logging.TN5250jLogger;
 		clazzes.add(CCSID1112.class);
 		clazzes.add(CCSID1140.class);
 		clazzes.add(CCSID1141.class);
+		clazzes.add(CCSID1145.class);
 		clazzes.add(CCSID1147.class);
 		clazzes.add(CCSID1148.class);
 	}
