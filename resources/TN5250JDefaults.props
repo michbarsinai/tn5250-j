@@ -1,19 +1,26 @@
 #
-#Thu Mar 20 11:42:38 CET 2003
-colorGUIField=-1
-colorHexAttr=-1
-colorSep=-1
-font=Andale Mono
-colorYellow=-256
-colorCursor=-1
-colorTurq=-16715521
-colorRed=-65536
-colorPink=-65281
-colorGreen=-16711936
-colorBlue=-7571201
+#Sun Dec 16 04:25:59 CET 2018
+backspaceError=Yes
+colSeparator=Hide
 colorBg=-16777216
+colorBlue=-13382401
+colorCursor=-1
+colorGUIField=-1
+colorGreen=-6684775
+colorHexAttr=-1
+colorPink=-39220
+colorRed=-52429
+colorSep=-1
+colorTurq=-16737895
 colorWhite=-1
-
-confirmTabClose=No
+colorYellow=-103
 confirmSignoff=Yes
+confirmTabClose=No
+cursorBlink=Yes
+cursorBottOffset=6
+cursorSize=Full
+doubleClick=Yes
+font=Inconsolata Regular
+guiShowUnderline=No
 mouseWheel=Yes
+useAntialias=Yes
