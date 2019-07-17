@@ -44,14 +44,13 @@ import javax.swing.JTextField;
  */
 public class SystemRequestDialog {
 
-	private final static String[] OPTIONS = new String[] { "SysReq", "Cancel" };
+	private final static String[] OPTIONS = new String[] { "Pet. Systema" };
 
 	private final Component parent;
 
 	private JDialog dialog;
 	private JOptionPane pane;
 	private JTextField text;
-
 
 	/**
 	 * @param parent
@@ -65,27 +64,31 @@ public class SystemRequestDialog {
 	private void initLayout() {
 		JPanel srp = new JPanel();
 		srp.setLayout(new BorderLayout());
-		JLabel jl = new JLabel("Enter alternate job");
+		JLabel jl = new JLabel("Teclee opción o pulse Intro para menú del sistema");
 		text = new JTextField();
 		srp.add(jl, BorderLayout.NORTH);
 		srp.add(text, BorderLayout.CENTER);
 		Object[] message = new Object[1];
 		message[0] = srp;
 
-		pane = new JOptionPane(message, // the dialog message array
-				JOptionPane.QUESTION_MESSAGE, // message type
-				JOptionPane.DEFAULT_OPTION, // option type
-				null, // optional icon, use null to use the default icon
-				OPTIONS, // options string array, will be made into buttons
+		pane = new JOptionPane(message,        // the dialog message array
+				JOptionPane.QUESTION_MESSAGE,  // message type
+				JOptionPane.DEFAULT_OPTION,    // option type
+				null,                          // optional icon, use null to use the default icon
+				OPTIONS,                       // options string array, will be made into buttons
 				OPTIONS[0]);
 
-		dialog = pane.createDialog(parent, "System Request");
+		dialog = pane.createDialog(parent, "  Petición del Sistema  ");
 
 		// add the listener that will set the focus to the desired option
-		dialog.addWindowListener(new WindowAdapter() {
-			public void windowOpened(WindowEvent e) {
-				text.requestFocus();
-			}
+        dialog.addWindowListener(new WindowAdapter() {
+
+			//public void windowOpened(WindowEvent e) {
+
+			//	text.requestFocus();
+
+			//}
+
 		});
 
 	}
