@@ -144,6 +144,7 @@ class DefaultKeyboardHandler extends KeyboardHandler {
     new HotspotsAction(sessionGui, keyMap);
     new GuiAction(sessionGui, keyMap);
     new DispMsgsAction(sessionGui, keyMap);
+    new DispOprMsgsAction(sessionGui, keyMap);
     new AttributesAction(sessionGui, keyMap);
     new PrintAction(sessionGui, keyMap);
     new RulerAction(sessionGui, keyMap);

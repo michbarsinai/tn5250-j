@@ -125,7 +125,8 @@ public enum KeyMnemonic {
   FAST_CURSOR_DOWN("[fastcursordown]", 0x139a),
   FAST_CURSOR_UP("[fastcursorup]", 0x139b),
   FAST_CURSOR_RIGHT("[fastcursorright]", 0x139c),
-  FAST_CURSOR_LEFT("[fastcursorleft]", 0x139d);
+  FAST_CURSOR_LEFT("[fastcursorleft]", 0x139d),
+  DISP_OPRMESSAGES("[dspoprmsgs]", 0x139e);
 
   public final String mnemonic;
   public final int value;
