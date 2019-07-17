@@ -3002,7 +3002,7 @@ public class Screen5250 {
 			lastAttr = planes.getCharAttr(lastPos - 1);
 		}
 		if (cByte > 0 && (char)cByte < ' ') {
-			planes.setScreenCharAndAttr(lastPos, (char) 0x00, 33, false);
+			planes.setScreenCharAndAttr(lastPos, (char) 0x00, lastAttr, false);
 			setDirty(lastPos);
 			advancePos();
 		} else {
