@@ -34,6 +34,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
+import org.tn5250j.tools.system.OperatingSystem;
 
 class PrinterThread extends Thread implements Printable {
 
@@ -230,7 +231,16 @@ class PrinterThread extends Thread implements Printable {
       l = k.getLineMetrics("Wy", f);
 
       // set the font of the print job
-      g2.setFont(k);
+      // g2.setFont(k);
+
+      // Forces the font to print accented characters.
+      // We assume that these fonts are always installed.
+      String os = System.getProperty("os.name");
+      if (os.toLowerCase().indexOf("linux") != -1) {
+          g2.setFont(new Font("Nimbus Mono PS", Font.PLAIN, 8));
+      } else {
+          g2.setFont(new Font("Lucida Sans", Font.PLAIN, 8));
+      };
 
       // get the width and height of the character bounds
       int w1 = (int) k.getStringBounds("W", f).getWidth();

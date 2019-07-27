@@ -4,6 +4,7 @@
 
 --- v0.8.0 ----------------------------------------------------- ??/??/20?? ---
 
+FIX: Forces the font to print accented characters 
 ADD: shortcut to dspmsg qsysopr
 FIX: Charset for CCSID 1145, according to http://www-01.ibm.com/software/globalization
 ADD: font size of keypad is configurable
