@@ -993,7 +993,7 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 		pArea.setRect(bi.getWidth(null) - columnWidth * 6,rowHeight * (numRows + 1),columnWidth * 6,rowHeight);
 		mArea.setRect((float)(sArea.getX()+ sArea.getWidth()) + columnWidth + columnWidth,
 				rowHeight * (numRows + 1),
-				columnWidth + columnWidth,
+				7 * columnWidth,
 				rowHeight);
 		kbArea.setRect((float)(sArea.getX()+ sArea.getWidth()) + (20 * columnWidth),
 				rowHeight * (numRows + 1),
@@ -1884,8 +1884,8 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 			g2d = getWritingArea(font);
 			float Y = (rowHeight * (screen.getRows() + 2))
 			- (lm.getLeading() + lm.getDescent());
-			g2d.setColor(colorBlue);
-			g2d.drawString("MW", (float) mArea.getX(), Y);
+			g2d.setColor(colorRed);
+			g2d.drawString("Message", (float) mArea.getX(), Y);
 			updateImage(mArea.getBounds());
 			g2d.dispose();
 			break;
