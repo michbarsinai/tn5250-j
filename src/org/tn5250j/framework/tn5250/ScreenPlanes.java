@@ -261,7 +261,7 @@ public class ScreenPlanes {
 			break;
 
 		case 37: // green/reverse/underline
-			c = ATTR_37;
+			c = ATTR_38;
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
 
@@ -291,7 +291,7 @@ public class ScreenPlanes {
 			break;
 
 		case 45: // red/reverse/underline
-			c = ATTR_45;
+			c = ATTR_44;
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
 
@@ -325,8 +325,8 @@ public class ScreenPlanes {
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
 
-		case 53:
-			c = ATTR_53;
+		case 53:  //Turquoise, underline, reverse image (column separator)
+			c = ATTR_52;
 			//            colSep = true;
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
@@ -363,7 +363,7 @@ public class ScreenPlanes {
 			break;
 
 		case 61: // pink/reverse/underline
-			c = ATTR_61;
+			c = ATTR_60;
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
 
