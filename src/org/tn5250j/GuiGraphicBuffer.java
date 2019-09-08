@@ -79,7 +79,7 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 	private Rectangle2D scriptArea; // script indicator
 	private Rectangle2D cursor = new Rectangle2D.Float();
 	private final static String xSystem = "X - System";
-	private final static String xError = "X - II";
+	private final static String xError = "X - Error";
 	private int crossRow;
 	private Rectangle crossRect = new Rectangle();
 	private int offTop = 0;   // offset from top
