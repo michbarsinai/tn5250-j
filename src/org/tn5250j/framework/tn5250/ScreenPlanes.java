@@ -256,7 +256,7 @@ public class ScreenPlanes {
 			break;
 
 		case 36: // green/underline
-			c = ATTR_36;
+			c = ATTR_38;
 			ul = EXTENDED_5250_UNDERLINE;
 			break;
 
