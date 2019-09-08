@@ -989,7 +989,7 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 		tArea.setRect(0,0,bi.getWidth(null),(rowHeight * (numRows)));
 		cArea.setRect(0,rowHeight * (numRows + 1),bi.getWidth(null),rowHeight * (numRows + 1));
 		aArea.setRect(0,0,bi.getWidth(null),bi.getHeight(null));
-		sArea.setRect(columnWidth * 9,rowHeight * (numRows + 1),columnWidth * 20,rowHeight);
+		sArea.setRect(columnWidth,rowHeight * (numRows + 1),columnWidth * 20,rowHeight);
 		pArea.setRect(bi.getWidth(null) - columnWidth * 6,rowHeight * (numRows + 1),columnWidth * 6,rowHeight);
 		mArea.setRect((float)(sArea.getX()+ sArea.getWidth()) + columnWidth + columnWidth,
 				rowHeight * (numRows + 1),
