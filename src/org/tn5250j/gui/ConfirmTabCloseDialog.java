@@ -65,7 +65,7 @@ public class ConfirmTabCloseDialog {
 		{
 			JPanel srp = new JPanel();
 			srp.setLayout(new BorderLayout());
-			JLabel jl = new JLabel("Are you sure you want to close this tab?");
+			JLabel jl = new JLabel(LangTool.getString("sa.confirmTabCloseOK"));
 			srp.add(jl, BorderLayout.NORTH);
 			messages[0] = srp;
 		}
@@ -77,7 +77,7 @@ public class ConfirmTabCloseDialog {
 				OPTIONS, // options string array, will be made into buttons
 				OPTIONS[0]);
 
-		dialog = pane.createDialog(parent,  LangTool.getString("sa.confirmTabClose"));
+		dialog = pane.createDialog(parent,  LangTool.getString("sa.confirmTabCloseTitle"));
 
 	}
 
