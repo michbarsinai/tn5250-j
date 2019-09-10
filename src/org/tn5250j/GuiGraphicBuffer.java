@@ -1005,7 +1005,7 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 				rowHeight);
 		iArea.setRect((float)(sArea.getX()+ sArea.getWidth()) + (25 * columnWidth),
 				rowHeight * (numRows + 1),
-				columnWidth,
+				3 * columnWidth,
 				rowHeight);
 
 		separatorLine.setLine(0,
@@ -1910,10 +1910,10 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 				g2d = getWritingArea(font);
 				Y = (rowHeight * (screen.getRows() + 2))
 				- (lm.getLeading() + lm.getDescent());
-				g2d.setColor(colorBlue);
-				g2d.drawLine((int)iArea.getX(),(int)Y,(int)(iArea.getX() + ((iArea.getWidth()/2)-1)),(int)(Y-(rowHeight/2)));
-				g2d.drawLine((int)(iArea.getX() + iArea.getWidth()-1),(int)Y,(int)(iArea.getX() + (iArea.getWidth()/2)),(int)(Y-(rowHeight/2)));
-				//g2d.drawString("I", (float) iArea.getX(), Y);
+				g2d.setColor(colorWhite);
+				//g2d.drawLine((int)iArea.getX(),(int)Y,(int)(iArea.getX() + ((iArea.getWidth()/2)-1)),(int)(Y-(rowHeight/2)));
+				//g2d.drawLine((int)(iArea.getX() + iArea.getWidth()-1),(int)Y,(int)(iArea.getX() + (iArea.getWidth()/2)),(int)(Y-(rowHeight/2)));
+				g2d.drawString("INS", (float) iArea.getX(), Y);
 
 				updateImage(iArea.getBounds());
 				g2d.dispose();
