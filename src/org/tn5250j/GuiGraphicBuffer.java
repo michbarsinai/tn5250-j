@@ -133,6 +133,8 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 
 	private SessionConfig config;
 
+	private boolean blinkStatus = false;
+
 	protected Rectangle clipper;
 
 	private final TN5250jLogger log = TN5250jLogFactory.getLogger ("GFX");
@@ -196,18 +198,16 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 	 */
 	public void actionPerformed(ActionEvent actionevent) {
 		if (actionevent.getSource() instanceof javax.swing.Timer) {
-
-			//         if (!cursorActive)
-			//            return;
-			//
-			//         if (cursorShown)
-			//            setCursorOff();
-			//         else
-			//            setCursorOn();
-			if (screen.isCursorActive())
-				screen.setCursorActive(false);
-			else
-				screen.setCursorActive(true);
+            if (blinkStatus) {
+                if (screen.isCursorActive()) {
+                    if (crossHair == 0)
+                        screen.setCursorActive(false);
+                } else {
+                    screen.setCursorActive(true);
+                }
+            } else {
+                screen.setCursorActive(true);
+            }
 		}
 	}
 
@@ -437,9 +437,12 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 
 		}
 
+		blinker = new javax.swing.Timer(700, this);
+		blinker.start();
 		if (config.getStringProperty("cursorBlink").equals("Yes")) {
-			blinker = new javax.swing.Timer(500, this);
-			blinker.start();
+			blinkStatus = true;
+		} else {
+			blinkStatus = false;
 		}
 
 		if (config.isPropertyExists("backspaceError")) {
@@ -680,22 +683,15 @@ public class GuiGraphicBuffer implements ScreenOIAListener,
 		}
 
 		if (pn.equals("cursorBlink")) {
-
 			log.debug(getStringProperty("cursorBlink"));
-			if (pce.getNewValue().equals("Yes")) {
-
-				if (blinker == null) {
-
-					blinker = new javax.swing.Timer(500, this);
-					blinker.start();
-				}
-			} else {
-
-				if (blinker != null) {
-					blinker.stop();
-					blinker = null;
-				}
-			}
+            if (blinker == null) {
+                blinker = new javax.swing.Timer(700, this);
+                blinker.start();
+            }
+			if (pce.getNewValue().equals("Yes"))
+                blinkStatus = true;
+            else
+                blinkStatus = false;
 		}
 
 		if (pn.equals("backspaceError")) {
