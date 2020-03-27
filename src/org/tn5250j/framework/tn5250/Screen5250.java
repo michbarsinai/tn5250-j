@@ -1085,11 +1085,9 @@ public class Screen5250 {
 						updateDirty();
 						if (screenFields.isCurrentFieldAutoEnter())
 							sendAid(AID_ENTER);
-
 					}
 				} else {
 					displayError(ERR_FIELD_MINUS);
-
 				}
 			} else {
 				displayError(ERR_CURSOR_PROTECTED);
@@ -1112,9 +1110,9 @@ public class Screen5250 {
 						gotoFieldNext();
 					} else {
 						do {
-							gotoFieldNext();
 							if (screenFields.isCurrentFieldContinued())
 								fieldExit();
+							gotoFieldNext();
 						} while (screenFields.isCurrentFieldContinuedMiddle()
 								|| screenFields.isCurrentFieldContinuedLast());
 					}
@@ -1135,26 +1133,32 @@ public class Screen5250 {
 					&& screenFields.withinCurrentField(lastPos)
 					&& !screenFields.isCurrentFieldBypassField()) {
 
-				resetDirty(lastPos);
+				if (!screenFields.isCurrentFieldContinued()) {
 
-				boolean autoFE = screenFields.isCurrentFieldAutoEnter();
-				if (fieldExit()) {
-					screenFields.setCurrentFieldMDT();
-					if (!screenFields.isCurrentFieldContinued() &&
-							!screenFields.isCurrentFieldAutoEnter()) {
-						gotoFieldNext();
-					} else {
-						do {
-							gotoFieldNext();
-						} while (screenFields.isCurrentFieldContinuedMiddle()
-								|| screenFields.isCurrentFieldContinuedLast());
-					}
+                    resetDirty(lastPos);
+
+                    boolean autoFE = screenFields.isCurrentFieldAutoEnter();
+                    if (fieldExit()) {
+                        screenFields.setCurrentFieldMDT();
+                        if (!screenFields.isCurrentFieldContinued() &&
+                                !screenFields.isCurrentFieldAutoEnter()) {
+                            gotoFieldNext();
+                        } else {
+                            do {
+                                gotoFieldNext();
+                            } while (screenFields.isCurrentFieldContinuedMiddle()
+                                    || screenFields.isCurrentFieldContinuedLast());
+                        }
+                    }
+                    updateDirty();
+                    simulated = true;
+
+                    if (autoFE)
+                        sendAid(AID_ENTER);
+
+				} else {
+					displayError(ERR_FIELD_EXIT_INVALID);
 				}
-				updateDirty();
-				simulated = true;
-
-				if (autoFE)
-					sendAid(AID_ENTER);
 
 			} else {
 				displayError(ERR_CURSOR_PROTECTED);
@@ -1167,7 +1171,9 @@ public class Screen5250 {
 					&& !screenFields.isCurrentFieldBypassField()) {
 
 				int s = screenFields.getCurrentField().getFieldShift();
-				if (s == 3 || s == 5 || s == 7) {
+				if ((s == 3 || s == 5 || s == 7)
+					&& !screenFields.isCurrentFieldContinued()) {
+
 					planes.setChar(lastPos, '-');
 
 					resetDirty(lastPos);
@@ -1194,10 +1200,8 @@ public class Screen5250 {
 					if (autoFE)
 						sendAid(AID_ENTER);
 
-				}
-				else {
+				} else {
 					displayError(ERR_FIELD_MINUS);
-
 				}
 			}
 			else {
