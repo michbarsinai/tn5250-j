@@ -71,93 +71,93 @@ public class GUIGraphicsUtils {
 		//      g.translate(x, y);
 
 		if (which == RAISED) {
-			g.setColor(Color.white);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth,
-					y + 1);
-
-			// | vertical
-			g.drawLine(x,
-					y,
-					x,
-					y + fmHeight - 2);
-
-			// | vertical
-			g.drawLine(x + 1,
-					y,
-					x + 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.black);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth,
-					y + fmHeight - 2) ;
-
-			g.setColor(Color.lightGray);
-
-			// --  horizontal bottom
-			g.drawLine(x + 1,
-					y + fmHeight - 3,
-					x + fmWidth,
-					y + fmHeight - 3) ;
+// 			g.setColor(Color.white);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth,
+// 					y + 1);
+// 
+// 			// | vertical
+// 			g.drawLine(x,
+// 					y,
+// 					x,
+// 					y + fmHeight - 2);
+// 
+// 			// | vertical
+// 			g.drawLine(x + 1,
+// 					y,
+// 					x + 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.black);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth,
+// 					y + fmHeight - 2) ;
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x + 1,
+// 					y + fmHeight - 3,
+// 					x + fmWidth,
+// 					y + fmHeight - 3) ;
 		}
 		if (which == INSET) {
 
-			g.setColor(Color.black);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth,
-					y + 1);
-
-			// | vertical
-			g.drawLine(x,
-					y,
-					x,
-					y + fmHeight - 2);
-
-			// | vertical
-			g.drawLine(x + 1,
-					y,
-					x + 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.white);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth,
-					y + fmHeight - 2) ;
-
-			g.setColor(Color.lightGray);
-
-			// --  horizontal bottom
-			g.drawLine(x + 1,
-					y + fmHeight - 3,
-					x + fmWidth,
-					y + fmHeight - 3) ;
-
-		}
-		//      g.translate(-x, -y);
-		g.setColor(oldColor);
+// 			g.setColor(Color.black);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth,
+// 					y + 1);
+// 
+// 			// | vertical
+// 			g.drawLine(x,
+// 					y,
+// 					x,
+// 					y + fmHeight - 2);
+// 
+// 			// | vertical
+// 			g.drawLine(x + 1,
+// 					y,
+// 					x + 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.white);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth,
+// 					y + fmHeight - 2) ;
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x + 1,
+// 					y + fmHeight - 3,
+// 					x + fmWidth,
+// 					y + fmHeight - 3) ;
+// 
+ 		}
+ 		//      g.translate(-x, -y);
+ 		g.setColor(oldColor);
 	}
 
 	public static void draw3DMiddle(Graphics g,int which,
@@ -168,67 +168,67 @@ public class GUIGraphicsUtils {
 		//      g.translate(x, y);
 
 		if (which == RAISED) {
-			g.setColor(Color.white);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth,
-					y + 1);
-
-			g.setColor(Color.black);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth,
-					y + fmHeight - 2) ;
-
-			g.setColor(Color.lightGray);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 3,
-					x + fmWidth,
-					y + fmHeight - 3) ;
+// 			g.setColor(Color.white);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth,
+// 					y + 1);
+// 
+// 			g.setColor(Color.black);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth,
+// 					y + fmHeight - 2) ;
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 3,
+// 					x + fmWidth,
+// 					y + fmHeight - 3) ;
 		}
 		if (which == INSET) {
 
-			g.setColor(Color.black);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth,
-					y + 1);
-
-			g.setColor(Color.white);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth,
-					y + fmHeight - 2) ;
-
-			g.setColor(Color.lightGray);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 3,
-					x + fmWidth,
-					y + fmHeight - 3) ;
-
-		}
+// 			g.setColor(Color.black);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth,
+// 					y + 1);
+// 
+// 			g.setColor(Color.white);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth,
+// 					y + fmHeight - 2) ;
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 3,
+// 					x + fmWidth,
+// 					y + fmHeight - 3) ;
+// 
+ 		}
 		//      g.translate(-x, -y);
 		g.setColor(oldColor);
 
@@ -243,90 +243,90 @@ public class GUIGraphicsUtils {
 
 		if (which == RAISED) {
 
-			g.setColor(Color.white);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth - 2,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth - 3,
-					y + 1);
-
-			g.setColor(Color.black);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth - 2,
-					y + fmHeight - 2) ;
-
-			// | vertical
-			g.drawLine(x + fmWidth - 1,
-					y,
-					x + fmWidth - 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.lightGray);
-
-			// | vertical
-			g.drawLine(x + fmWidth - 2,
-					y + 1,
-					x + fmWidth - 2,
-					y + fmHeight - 3);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 3,
-					x + fmWidth - 2,
-					y + fmHeight - 3) ;
+// 			g.setColor(Color.white);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth - 2,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth - 3,
+// 					y + 1);
+// 
+// 			g.setColor(Color.black);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 2) ;
+// 
+// 			// | vertical
+// 			g.drawLine(x + fmWidth - 1,
+// 					y,
+// 					x + fmWidth - 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// | vertical
+// 			g.drawLine(x + fmWidth - 2,
+// 					y + 1,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 3,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3) ;
 		}
 		if (which == INSET) {
 
-			g.setColor(Color.black);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth - 2,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth - 3,
-					y + 1);
-
-			g.setColor(Color.white);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth - 2,
-					y + fmHeight - 2) ;
-
-			// | vertical
-			g.drawLine(x + fmWidth - 1,
-					y,
-					x + fmWidth - 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.lightGray);
-
-			// | vertical
-			g.drawLine(x + fmWidth - 2,
-					y + 1,
-					x + fmWidth - 2,
-					y + fmHeight - 3);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 3,
-					x + fmWidth - 2,
-					y + fmHeight - 3) ;
-
+// 			g.setColor(Color.black);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth - 2,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth - 3,
+// 					y + 1);
+// 
+// 			g.setColor(Color.white);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 2) ;
+// 
+// 			// | vertical
+// 			g.drawLine(x + fmWidth - 1,
+// 					y,
+// 					x + fmWidth - 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// | vertical
+// 			g.drawLine(x + fmWidth - 2,
+// 					y + 1,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 3,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3) ;
+// 
 		}
 		//      g.translate(-x, -y);
 		g.setColor(oldColor);
@@ -342,114 +342,114 @@ public class GUIGraphicsUtils {
 
 		if (which == INSET) {
 
-			g.setColor(Color.black);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth - 2,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth - 3,
-					y + 1);
-
-			// | vertical
-			g.drawLine(x,
-					y,
-					x,
-					y + fmHeight - 2);
-
-			// | vertical
-			g.drawLine(x + 1,
-					y,
-					x + 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.white);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth - 2,
-					y + fmHeight - 2) ;
-
-			// | vertical right
-			g.drawLine(x + fmWidth - 1,
-					y,
-					x + fmWidth - 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.lightGray);
-
-			// | vertical right
-			g.drawLine(x + fmWidth - 2,
-					y + 1,
-					x + fmWidth - 2,
-					y + fmHeight - 3);
-
-			// --  horizontal bottom
-			g.drawLine(x + 1,
-					y + fmHeight - 3,
-					x + fmWidth - 2,
-					y + fmHeight - 3) ;
+// 			g.setColor(Color.black);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth - 2,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth - 3,
+// 					y + 1);
+// 
+// 			// | vertical
+// 			g.drawLine(x,
+// 					y,
+// 					x,
+// 					y + fmHeight - 2);
+// 
+// 			// | vertical
+// 			g.drawLine(x + 1,
+// 					y,
+// 					x + 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.white);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 2) ;
+// 
+// 			// | vertical right
+// 			g.drawLine(x + fmWidth - 1,
+// 					y,
+// 					x + fmWidth - 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// | vertical right
+// 			g.drawLine(x + fmWidth - 2,
+// 					y + 1,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x + 1,
+// 					y + fmHeight - 3,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3) ;
 
 		}
 		if (which == RAISED) {
 
-			g.setColor(Color.white);
-			// --  horizontal top
-			g.drawLine(x,
-					y,
-					x + fmWidth - 2,
-					y);
-
-			// --  horizontal top
-			g.drawLine(x,
-					y + 1,
-					x + fmWidth - 3,
-					y + 1);
-
-			// | vertical
-			g.drawLine(x,
-					y,
-					x,
-					y + fmHeight - 2);
-
-			// | vertical
-			g.drawLine(x + 1,
-					y,
-					x + 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.darkGray);
-
-			// --  horizontal bottom
-			g.drawLine(x,
-					y + fmHeight - 2,
-					x + fmWidth - 2,
-					y + fmHeight - 2) ;
-
-			// | vertical right
-			g.drawLine(x + fmWidth - 1,
-					y,
-					x + fmWidth - 1,
-					y + fmHeight - 2);
-
-			g.setColor(Color.lightGray);
-
-			// | vertical right
-			g.drawLine(x + fmWidth - 2,
-					y + 1,
-					x + fmWidth - 2,
-					y + fmHeight - 3);
-
-			// --  horizontal bottom
-			g.drawLine(x + 1,
-					y + fmHeight - 3,
-					x + fmWidth - 2,
-					y + fmHeight - 3) ;
+// 			g.setColor(Color.white);
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y,
+// 					x + fmWidth - 2,
+// 					y);
+// 
+// 			// --  horizontal top
+// 			g.drawLine(x,
+// 					y + 1,
+// 					x + fmWidth - 3,
+// 					y + 1);
+// 
+// 			// | vertical
+// 			g.drawLine(x,
+// 					y,
+// 					x,
+// 					y + fmHeight - 2);
+// 
+// 			// | vertical
+// 			g.drawLine(x + 1,
+// 					y,
+// 					x + 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.darkGray);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x,
+// 					y + fmHeight - 2,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 2) ;
+// 
+// 			// | vertical right
+// 			g.drawLine(x + fmWidth - 1,
+// 					y,
+// 					x + fmWidth - 1,
+// 					y + fmHeight - 2);
+// 
+// 			g.setColor(Color.lightGray);
+// 
+// 			// | vertical right
+// 			g.drawLine(x + fmWidth - 2,
+// 					y + 1,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3);
+// 
+// 			// --  horizontal bottom
+// 			g.drawLine(x + 1,
+// 					y + fmHeight - 3,
+// 					x + fmWidth - 2,
+// 					y + fmHeight - 3) ;
 
 		}
 
