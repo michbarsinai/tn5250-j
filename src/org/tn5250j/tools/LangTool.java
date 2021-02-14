@@ -58,7 +58,7 @@ public final class LangTool {
       try {
          labels = ResourceBundle.getBundle(initMsgFile,locale);
       }
-      catch (MissingResourceException mre) {
+      catch (NullPointerException | MissingResourceException mre) {
          System.out.println(mre.getLocalizedMessage());
       }
    }
@@ -67,7 +67,7 @@ public final class LangTool {
       try {
          return labels.getString(key);
       }
-      catch (MissingResourceException mre) {
+      catch (NullPointerException | MissingResourceException mre) {
          System.out.println(mre.getLocalizedMessage());
          return key;
       }
@@ -77,7 +77,7 @@ public final class LangTool {
       try {
          return labels.getString(key);
       }
-      catch (MissingResourceException mre) {
+      catch (NullPointerException | MissingResourceException mre) {
          return defaultString;
       }
    }

@@ -39,6 +39,7 @@ import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -1570,9 +1571,12 @@ public class GUIGraphicsUtils {
 
 		if (tnicon == null) {
 			tnicon = new ArrayList<Image>();
-			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-16x16.png")).getImage());
-			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-32x32.png")).getImage());
-			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-48x48.png")).getImage());
+			tnicon.add(new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB));
+			tnicon.add(new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB));
+			tnicon.add(new BufferedImage(48, 48, BufferedImage.TYPE_INT_RGB));
+//			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-16x16.png")).getImage());
+//			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-32x32.png")).getImage());
+//			tnicon.add(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("tn5250j-48x48.png")).getImage());
 		}
 		return tnicon;
 	}

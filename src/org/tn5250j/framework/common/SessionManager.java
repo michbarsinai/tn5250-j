@@ -28,6 +28,8 @@ import org.tn5250j.Session5250;
 import org.tn5250j.SessionConfig;
 import org.tn5250j.SessionPanel;
 import org.tn5250j.TN5250jConstants;
+import org.tn5250j.TestoryRemotePanel;
+import org.tn5250j.TestorySessionListener;
 import org.tn5250j.interfaces.SessionManagerInterface;
 import org.tn5250j.tools.logging.TN5250jLogFactory;
 import org.tn5250j.tools.logging.TN5250jLogger;
@@ -122,6 +124,13 @@ public class SessionManager implements SessionManagerInterface {
 		Session5250 newSession = new Session5250(sesProps,configurationResource,
 				sessionName,useConfig);
 		sessions.addSession(newSession);
+        
+        TestorySessionListener tsl = new TestorySessionListener(newSession);
+        newSession.addSessionListener(tsl);
+        TestoryRemotePanel trp = new TestoryRemotePanel();
+        trp.setSession(newSession);
+        trp.showWindow();
+        
 		return newSession;
 
 	}

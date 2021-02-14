@@ -27,7 +27,9 @@ package org.tn5250j;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import javax.swing.ImageIcon;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -78,8 +81,17 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	private TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
 
 	My5250 () {
-
-		splash = new TN5250jSplashScreen("tn5250jSplash.jpg");
+        
+        BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = img.createGraphics();
+        g.drawString("IBM AS400/System I", 10, 40);
+        
+        g.dispose();
+        
+        ImageIcon ii = new ImageIcon(img);
+        
+//		splash = new TN5250jSplashScreen("resources/tn5250jSplash.jpg");
+		splash = new TN5250jSplashScreen(ii);
 		splash.setSteps(5);
 		splash.setVisible(true);
 
