@@ -74,11 +74,11 @@ public class Tn5250jController extends Thread {
 		log.info("Tn5250j plugin manager created");
 		manager = SessionManager.instance();
 		Sessions ses = manager.getSessions();
-		log.debug("Sessions:" + ses.getCount());
+		log.info("Sessions:" + ses.getCount());
 		sesprops =
 			((GlobalConfigure) ConfigureFactory.getInstance()).getProperties(
 				GlobalConfigure.SESSIONS);
-		log.debug("Session configuration: " + sesprops.toString());
+		log.info("Session configuration: " + sesprops.toString());
 		this.start();
 	}
 

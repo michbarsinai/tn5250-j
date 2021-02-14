@@ -23,6 +23,7 @@ package org.tn5250j.framework.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import static java.util.stream.Collectors.toList;
 
 import org.tn5250j.Session5250;
 import org.tn5250j.SessionConfig;
@@ -78,7 +79,7 @@ public class SessionManager implements SessionManagerInterface {
 	private void initialize() {
 		log.info("New session Manager initialized");
 		sessions = new Sessions();
-		configs = new ArrayList<SessionConfig>();
+		configs = new ArrayList<>();
 
 	}
 
@@ -134,5 +135,9 @@ public class SessionManager implements SessionManagerInterface {
 		return newSession;
 
 	}
+    
+    public List<String> getConfigNames() {
+        return configs.stream().map( c -> c.getSessionName() ).collect( toList() );
+    }
 
 }

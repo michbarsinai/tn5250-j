@@ -25,8 +25,10 @@
  */
 package org.tn5250j;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -41,6 +43,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import javax.swing.SwingUtilities;
@@ -63,6 +67,7 @@ import org.tn5250j.interfaces.GUIViewInterface;
 import org.tn5250j.tools.LangTool;
 import org.tn5250j.tools.logging.TN5250jLogFactory;
 import org.tn5250j.tools.logging.TN5250jLogger;
+import org.tn5250j.webserver.ServerMgr;
 
 public class My5250 implements BootListener, SessionListener, EmulatorActionListener {
 
@@ -84,7 +89,10 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
         
         BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = img.createGraphics();
-        g.drawString("IBM AS400/System I", 10, 40);
+        
+        g.setColor(Color.CYAN);
+        g.setFont( new Font(Font.MONOSPACED, Font.PLAIN, 16));
+        g.drawString("IBM AS400/System I", 10, 50);
         
         g.dispose();
         
@@ -92,31 +100,48 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
         
 //		splash = new TN5250jSplashScreen("resources/tn5250jSplash.jpg");
 		splash = new TN5250jSplashScreen(ii);
-		splash.setSteps(5);
+		splash.setSteps(6);
 		splash.setVisible(true);
 
 		loadLookAndFeel();
-
-
+        log.info("LaF OK");
+       
 		loadSessions();
+        log.info("Sessions OK");
 		splash.updateProgress(++step);
 
 		initJarPaths();
+        log.info("Jar Paths OK");
 
 		initScripting();
+        log.info("Scripting OK");
 
 		// sets the starting frame type.  At this time there are tabs which is
 		//    default and Multiple Document Interface.
 //		startFrameType();
 
-		frames = new ArrayList<GUIViewInterface>();
+		frames = new ArrayList<>();
 
 		newView();
+        log.info("newView OK");
 
 		setDefaultLocale();
 		manager = SessionManager.instance();
+        log.info("Session Manager OK");
 		splash.updateProgress(++step);
+        
+        ServerMgr webSvr = new ServerMgr(manager, sessions);
+        try {
+            webSvr.start();
+            log.info("HTTP OK");
+        } catch (IOException ex) {
+            Logger.getLogger(My5250.class.getName()).log(Level.SEVERE, "Cannot start web server", ex);
+        }
+		
+        splash.updateProgress(++step);
 		Tn5250jController.getCurrent();
+        log.info("Ctor DONE");
+        
 	}
 
 
@@ -125,21 +150,21 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	 * for the MAC operating system.
 	 */
 	private void loadLookAndFeel() {
-		try  {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		}
-		catch(Exception e) {
+//		try  {
+//			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+//				if ("Nimbus".equals(info.getName())) {
+//					UIManager.setLookAndFeel(info.getClassName());
+//					break;
+//				}
+//			}
+//		}
+//		catch(Exception e) {
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} catch (Exception ex) {
 				// we don't care. Cause this should always work.
 			}
-		}
+//		}
 	}
 
 	/**
