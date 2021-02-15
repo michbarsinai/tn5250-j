@@ -49,7 +49,6 @@ import javax.swing.ImageIcon;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.tn5250j.connectdialog.ConnectDialog;
 import org.tn5250j.event.BootEvent;
@@ -130,7 +129,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
         log.info("Session Manager OK");
 		splash.updateProgress(++step);
         
-        ServerMgr webSvr = new ServerMgr(manager, sessions);
+        ServerMgr webSvr = new ServerMgr(manager, sessions, this);
         try {
             webSvr.start();
             log.info("HTTP OK");
@@ -393,7 +392,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	}
 
 	static List<String> loadLastSessionViewNamesFrom(String[] commandLineArgs) {
-		List<String> sessionNames = new ArrayList<String>();
+		List<String> sessionNames = new ArrayList<>();
 		boolean foundRightParam = false;
 		for (String arg : commandLineArgs) {
 			if (foundRightParam && !PARAM_START_SESSION.equals(arg)) {
@@ -428,7 +427,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	}
 
 	static List<String> filterExistingViewNames(List<String> lastViewNames) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		for (String viewName : lastViewNames) {
 			if (sessions.containsKey(viewName)) {
 				result.add(viewName);
@@ -561,7 +560,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		return sc.getConnectKey();
 	}
 
-	private synchronized void newSession(String sel,String[] args) {
+	public synchronized SessionPanel newSession(String sel,String[] args) {
 
 		Properties sesProps = new Properties();
 
@@ -678,6 +677,8 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		s.connect();
 
 		s.addEmulatorActionListener(this);
+        
+        return s;
 	}
 
 	private void newView() {
@@ -801,7 +802,12 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		}
 	}
 
-	private static void parseArgs(String theStringList, String[] s) {
+    /**
+     * Fills {@code s} by parsing {@code theStringList} for arguments.
+     * @param theStringList Argument string
+     * @param s output parameter string array.
+     */
+	public static void parseArgs(String theStringList, String[] s) {
 		int x = 0;
 		StringTokenizer tokenizer = new StringTokenizer(theStringList, " ");
 		while (tokenizer.hasMoreTokens()) {

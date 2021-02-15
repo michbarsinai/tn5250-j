@@ -57,7 +57,7 @@ import org.tn5250j.encoding.CharMappings;
 import org.tn5250j.tools.AlignLayout;
 import org.tn5250j.tools.LangTool;
 
-class Configure {
+public class Configure {
 
   private static Properties props = null;
 
@@ -659,7 +659,7 @@ class Configure {
     return sb.toString();
   }
 
-  static void parseArgs(String theStringList, String[] s) {
+  public static void parseArgs(String theStringList, String[] s) {
     int x = 0;
     StringTokenizer tokenizer = new StringTokenizer(theStringList, " ");
     while (tokenizer.hasMoreTokens()) {
