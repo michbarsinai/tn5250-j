@@ -48,7 +48,7 @@ public class TestoryRemotePanel {
     public void showWindow() {
         SwingUtilities.invokeLater(()->{
             JFrame window = new JFrame("Testory Remote");
-//            window.getContentPane().add( createPanel() );
+            window.getContentPane().add( createPanel() );
             window.pack();
             window.setVisible(true);
         });
@@ -88,7 +88,7 @@ public class TestoryRemotePanel {
     }
     
     private void updatePanel() {
-        if ( true ) return; // workaround
+//        if ( true ) return; // workaround
         Screen5250 screen = session.getScreen();
         
         fieldBtnCtnr.removeAll();
@@ -109,7 +109,6 @@ public class TestoryRemotePanel {
     
     private String drawScreen( Screen5250 scrn ) {
         char[] content = scrn.getScreenAsChars();
-        System.out.println("content = " + content);
         int screenWidth = scrn.getColumns();
         
         StringBuilder sb = new StringBuilder();

@@ -1,14 +1,15 @@
 package org.tn5250j.webserver;
 
 import com.sun.net.httpserver.*;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import static java.util.stream.Collectors.joining;
@@ -26,7 +27,7 @@ import org.tn5250j.tools.logging.TN5250jLogger;
  * 
  * @author michael
  */
-public class ServerMgr {
+public class ServerMgr extends WebCtrl {
     
     HttpServer server;
         
@@ -34,7 +35,7 @@ public class ServerMgr {
     private final Properties properties;
     private final My5250 terminalApp;
     private final TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
-    private final Map<String, SessionPanel> activeSessions = new HashMap<>();
+    private final Map<String, SessionCtrl> activeSessions = new HashMap<>();
 
     public ServerMgr(SessionManager sessions, Properties properties, My5250 terminalApp) {
         this.sessions = sessions;
@@ -49,11 +50,7 @@ public class ServerMgr {
             @Override
             public void handle(HttpExchange exchange) throws IOException {
                 System.out.println("global handler hit. URI: " + exchange.getRequestURI() );
-                exchange.getResponseHeaders().set("Content-Type", "text/plain");
-                exchange.sendResponseHeaders(200, 0);
-                try (OutputStream os = exchange.getResponseBody()) {
-                    os.write("AS/400 HTTP Automation by Testory\n".getBytes());
-                }
+                sendText(200, "AS/400 HTTP Automation by Testory\n", exchange);
             }
         });
         
@@ -67,18 +64,38 @@ public class ServerMgr {
         return new HttpHandler(){
             @Override
             public void handle(HttpExchange exchange) throws IOException {
-                switch (exchange.getRequestMethod()){
-                    case "GET": listActiveSessions(exchange); break;
-                    case "PUT": startNewSession(exchange); break;
-                    default:
-                        exchange.sendResponseHeaders(405, 0);
-                        try (OutputStream os = exchange.getResponseBody()) {
-                            os.write(("No endpoint for http call " + 
-                                     exchange.getRequestMethod()  +
-                                     exchange.getRequestURI() + "\n").getBytes());
-                        }
+                String path = exchange.getRequestURI().getPath();
+                if ( exchange.getRequestMethod().equals("PUT") && path.matches("/sessions/[^/]*") ) {
+                     startNewSession(exchange);
+                     
+                } else if ( path.equals("/sessions/") ){
+                    // handle global operations.
+                    switch (exchange.getRequestMethod()){
+                        case "GET": listActiveSessions(exchange); break;
+                        default:
+                            sendText(405,("No endpoint for http call " + 
+                                         exchange.getRequestMethod() +
+                                         exchange.getRequestURI() + "\n"), exchange );
+
+                    }
+                    
+                } else {
+                    // path is of the form /sessions/(.+)$
+                    String[] compArr = path.split("/",-1);
+                    List<String> comps = new LinkedList<>(Arrays.asList(compArr));
+                    comps.remove(0); // first element always empty (>/<XXXX)
+                    comps.remove(0); // sessions is now deleted
+                    String sessionName = comps.remove(0);
+                    SessionCtrl asc = activeSessions.get(sessionName);
+                    if ( asc != null ) {
+                        asc.handle(comps, exchange);
                         
+                    } else {
+                        sendText(404,"No active session named '" + 
+                                     sessionName + "'.\n", exchange );
+                    }
                 }
+                
             }
         };
     }
@@ -120,15 +137,8 @@ public class ServerMgr {
     }
     
     private void startNewSession( HttpExchange exchange ) throws IOException {
-        StringBuilder inBld = new StringBuilder();
-        try ( BufferedReader in = new BufferedReader(new InputStreamReader(exchange.getRequestBody())) ) {
-            String line;
-            while( (line=in.readLine()) != null ) {
-                inBld.append(line);
-                inBld.append("\n");
-            }
-        } 
-        String sel = inBld.toString().trim();
+        
+        String sel = readRequestText(exchange).trim();
         
         log.info("Starting new session named '" + sel + "'");
         
@@ -142,12 +152,13 @@ public class ServerMgr {
                 String sessionName = comps[comps.length-1];
                 SessionPanel sp = terminalApp.newSession(sel, sessionArgs);
                 
-                activeSessions.put(sessionName, sp);
+                activeSessions.put(sessionName, new SessionCtrl(sp, this, sessionName));
                 
                 exchange.sendResponseHeaders(201, 0);
                 exchange.getResponseBody().close();
                 
             } else {
+                sendText(400, "No configuration named '" + sel + "'", exchange);
                 exchange.sendResponseHeaders(400, 0);
                 try (OutputStream os = exchange.getResponseBody();
                      PrintWriter out = new PrintWriter(os)) {
@@ -156,12 +167,7 @@ public class ServerMgr {
             }
             
 		} else {
-            
             exchange.sendResponseHeaders(400, 0);
-			try (OutputStream os = exchange.getResponseBody();
-                 PrintWriter out = new PrintWriter(os)) {
-                out.println("Missing configuration name in the request body.");
-            }
 		}
     }
     
@@ -172,9 +178,11 @@ public class ServerMgr {
         try (OutputStream os = exchange.getResponseBody();
              PrintWriter out = new PrintWriter(os)) {
             out.print("[");
-            String idJsonList = activeSessions.keySet().stream()
-                .collect( joining("\",\"", "\"", "\""));
-            out.print(idJsonList);
+            if ( ! activeSessions.isEmpty() ) {
+                String idJsonList = activeSessions.keySet().stream()
+                    .collect( joining("\",\"", "\"", "\""));
+                out.print(idJsonList);
+            }
             out.print("]");
         }
     }

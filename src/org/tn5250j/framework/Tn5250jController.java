@@ -254,7 +254,7 @@ public class Tn5250jController extends Thread {
 		parseArgs((String) sesprops.get(name), args);
 		Properties fin = convertToProps(args);
 		Session5250 newses = manager.openSession(fin, null, name);
-      SessionPanel newGui = new SessionPanel(newses);
+        SessionPanel newGui = new SessionPanel(newses);
 		frame.getContentPane().add(newGui);
 		frame.setBounds(50, 50, 960, 700);
 		frame.setVisible(true);
