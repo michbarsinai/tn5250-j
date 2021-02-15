@@ -307,7 +307,11 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 		}
 		return close;
 	}
-
+    
+    public void fireCloseSession(){
+       fireEmulatorAction(EmulatorActionEvent.CLOSE_SESSION);
+    }
+    
 	/**
 	 * Asks the user to confirm tab close,
 	 * only if configured (option 'confirm tab close')

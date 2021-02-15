@@ -88,7 +88,17 @@ public class ServerMgr extends WebCtrl {
                     String sessionName = comps.remove(0);
                     SessionCtrl asc = activeSessions.get(sessionName);
                     if ( asc != null ) {
-                        asc.handle(comps, exchange);
+                        if ( comps.isEmpty() || (comps.size()==1 && comps.get(0).trim().isEmpty()) ) {
+                            if ( "DELETE".equals(exchange.getRequestMethod()) ) {
+                                asc.deleteSesstion();
+                                final SessionCtrl removed = activeSessions.remove(sessionName);
+                                terminalApp.getMainGUIFrame().removeSessionView(removed.getPanel());
+                                sendText(204,null,exchange);
+                                
+                            } else sendText(405,"Method " + exchange.getRequestMethod() + " not allowed", exchange );
+                        } else {
+                            asc.handle(comps, exchange);
+                        }
                         
                     } else {
                         sendText(404,"No active session named '" + 
@@ -152,7 +162,7 @@ public class ServerMgr extends WebCtrl {
                 String sessionName = comps[comps.length-1];
                 SessionPanel sp = terminalApp.newSession(sel, sessionArgs);
                 
-                activeSessions.put(sessionName, new SessionCtrl(sp, this, sessionName));
+                activeSessions.put(sessionName, new SessionCtrl(sp, sessionName));
                 
                 exchange.sendResponseHeaders(201, 0);
                 exchange.getResponseBody().close();

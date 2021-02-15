@@ -930,4 +930,8 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		 return sessions;
 	 }
 
+    public GUIViewInterface getMainGUIFrame() {
+        return frame1;
+    }
+     
 }

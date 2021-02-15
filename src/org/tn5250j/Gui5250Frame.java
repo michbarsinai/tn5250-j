@@ -360,7 +360,7 @@ SessionJumpListener {
 	 /* (non-Javadoc)
 	  * @see org.tn5250j.event.TabClosedListener#onTabClosed(int)
 	  */
-	 @Override
+	@Override
 	public void onTabClosed(int tabToBeClosed) {
 		 final SessionPanel sesspanel = this.getSessionAt(tabToBeClosed);
 		 sesspanel.confirmCloseSession(true);
@@ -370,7 +370,7 @@ SessionJumpListener {
 	 /* (non-Javadoc)
 	  * @see org.tn5250j.interfaces.GUIViewInterface#removeSessionView(org.tn5250j.SessionGUI)
 	  */
-	 @Override
+	@Override
 	public void removeSessionView(SessionPanel targetSession) {
 		 if (hideTabBar && sessTabbedPane.getTabCount() == 0) {
 			 for (int x=0; x < getContentPane().getComponentCount(); x++) {

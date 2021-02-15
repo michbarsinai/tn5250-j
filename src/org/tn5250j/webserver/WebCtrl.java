@@ -14,9 +14,9 @@ public abstract class WebCtrl {
     
     protected void sendText( int code, String text, HttpExchange exchange ) throws IOException {
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
-        exchange.sendResponseHeaders(code, text.length());
+        exchange.sendResponseHeaders(code, (text!=null) ? text.length(): -1);
         try (OutputStream os = exchange.getResponseBody()) {
-            os.write(text.getBytes());
+            if ( text != null ) os.write(text.getBytes());
         }
     }
     

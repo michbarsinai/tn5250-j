@@ -29,13 +29,11 @@ import org.tn5250j.tools.logging.TN5250jLogger;
 public class SessionCtrl extends WebCtrl {
     
     private final SessionPanel panel;
-    private final ServerMgr manager;
     private final String sessionKey;
     private final TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
 
-    public SessionCtrl(SessionPanel panel, ServerMgr manager, String sessionKey) {
+    public SessionCtrl(SessionPanel panel, String sessionKey) {
         this.panel = panel;
-        this.manager = manager;
         this.sessionKey = sessionKey;
     }
 
@@ -54,7 +52,6 @@ public class SessionCtrl extends WebCtrl {
     private void grabScreenImage(HttpExchange exchange) throws IOException {
         Rectangle bounds = panel.getDrawingBounds();
         BufferedImage img = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
-        log.info("Screen size: " + bounds.width + "x" + bounds.height);
         Graphics2D g2 = img.createGraphics();
         panel.paint(g2);
         g2.dispose();
@@ -94,7 +91,7 @@ public class SessionCtrl extends WebCtrl {
             listScreenFields(exchange);
             
         } else {
-            String action = path.remove(0).trim().toLowerCase();;
+            String action = path.remove(0).trim().toLowerCase();
             if ( action.equals("go") ) {
                 String content = readRequestText(exchange).toLowerCase().trim();
                 switch (content) {
@@ -173,19 +170,28 @@ public class SessionCtrl extends WebCtrl {
     private JSONObject fld2Json(ScreenField fld, final ScreenFields screenFields) throws JSONException {
         JSONObject obj = new JSONObject();
         obj.put("id", fld.getFieldId() );
-        obj.put("length", fld.getFieldLength());
-        obj.put("shift", fld.getFieldShift());
-        obj.put("attr", fld.getAttr());
         obj.put("fcw1", fld.getFCW1());
         obj.put("fcw2", fld.getFCW2());
         obj.put("ffw1", fld.getFFW1());
         obj.put("ffw2", fld.getFFW2());
-        obj.put("adjustment", fld.getAdjustment());
         obj.put("text", fld.getString());
-        obj.put("is_current", (screenFields.getCurrentField().getFieldId()==fld.getFieldId()));
+        obj.put("attr", fld.getAttr());
+        obj.put("shift", fld.getFieldShift());
+        obj.put("length", fld.getFieldLength());
         obj.put("is_RTL", fld.isRightToLeft());
+        obj.put("adjustment", fld.getAdjustment());
+        obj.put("is_current", (screenFields.getCurrentField().getFieldId()==fld.getFieldId()));
         obj.put("is_mandatory", fld.isMandatoryEnter());
         return obj;
+    }
+
+    void deleteSesstion() {
+        panel.disconnect();
+        panel.fireCloseSession();
+    }
+
+    SessionPanel getPanel() {
+        return panel;
     }
     
 }
