@@ -38,6 +38,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -293,7 +295,15 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 				System.exit(0);
 			}
 		}
-
+        
+        // expire
+        LocalDate bestBy = LocalDate.of(2021, Month.JULY, 1);
+        if ( LocalDate.now().isAfter(bestBy) ) {
+            System.out.println("EXPIRED");
+            System.exit(3);
+        }
+        
+        
 		My5250 m = new My5250();
 
 		if (strapper != null)
@@ -351,7 +361,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 			LangTool.init();
 		}
 
-		List<String> lastViewNames = new ArrayList<String>();
+		List<String> lastViewNames = new ArrayList<>();
 		lastViewNames.addAll(loadLastSessionViewNames());
 		lastViewNames.addAll(loadLastSessionViewNamesFrom(args));
 		lastViewNames = filterExistingViewNames(lastViewNames);
