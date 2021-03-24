@@ -23,11 +23,11 @@
 
 * `GET /configs/` lists configurations that can be used for starting sessions.
 * `GET /sessions/` lists active session names
-* `PUT /sessions/:sname` Starts a new session named :sname. Payload is config name.
-* `DELETE /sessions/:sname` deletes the session :sname.
-* `PUT /sessions/:sname/keys` sends keys to session :sname. Payload is the keys.
+* `PUT /sessions/:sname` Starts a new session named :sname. Payload is config name. (expect: 201 CREATED)
+* `DELETE /sessions/:sname` deletes the session :sname. (expect: 200 OK with `Session :sname closed`)
+* `PUT /sessions/:sname/keys` sends keys to session :sname. Payload is the keys. (expect: 200 OK)
 * `GET /sessions/:sname/text` returns a text view of :sname's screen.
-* `GET /sessions/:sname/image` returns a screen grab of :sname.
+* `GET /sessions/:sname/image` returns a screen grab of :sname. (expect: 200, image/png)
 * `GET /sessions/:sname/fields/` list of all the fields in :sname.
 * `GET /sessions/:sname:/fields/:id` Data for field :id in :sname. Includes attributes and text. :id is number or "first".
 * `PUT /sessions/:sname/fields/go` move to prev/next field in :sname. Payload is "prev" or "next".

@@ -93,7 +93,7 @@ public class ServerMgr extends WebCtrl {
                                 asc.deleteSesstion();
                                 final SessionCtrl removed = activeSessions.remove(sessionName);
                                 terminalApp.getMainGUIFrame().removeSessionView(removed.getPanel());
-                                sendText(204,null,exchange);
+                                sendText(200,"Session " + sessionName + " closed",exchange);
                                 
                             } else sendText(405,"Method " + exchange.getRequestMethod() + " not allowed", exchange );
                         } else {

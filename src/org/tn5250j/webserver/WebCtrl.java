@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * Some utility methods for web thingies.
+ * A base class providing utility methods for web-based controllers.
  * @author michael
  */
 public abstract class WebCtrl {
@@ -28,6 +28,7 @@ public abstract class WebCtrl {
                 inBld.append(line);
                 inBld.append("\n");
             }
+            inBld.setLength( inBld.length()-1 );
         }
         return inBld.toString();
     }
