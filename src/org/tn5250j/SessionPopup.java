@@ -155,7 +155,7 @@ public class SessionPopup {
         }
       };
       popup.add(action);
-
+      
       Rectangle workR = new Rectangle();
       if (sessiongui.rubberband.isAreaSelected()) {
 
@@ -536,7 +536,18 @@ public class SessionPopup {
       popup.add(createMenuItem(action, CLOSE));
 
     }
+    
+    popup.addSeparator();
+    popup.add(new AbstractAction("Testory Inspector"){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            TestoryRemotePanel trp = new TestoryRemotePanel();
+            trp.setSession(ses.getSession());
+            trp.showWindow();
+        }
+    });
 
+    
     GUIGraphicsUtils.positionPopup(me.getComponent(), popup,
         me.getX(), me.getY());
 

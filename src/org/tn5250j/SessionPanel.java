@@ -32,6 +32,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 
 import org.tn5250j.event.EmulatorActionEvent;
 import org.tn5250j.event.EmulatorActionListener;
@@ -107,6 +108,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 		this.setLayout(new BorderLayout());
 		session.setGUI(this);
 		screen = session.getScreen();
+        setBorder( new BevelBorder(BevelBorder.LOWERED) );
 
 		this.addComponentListener(new ComponentAdapter() {
 			@Override

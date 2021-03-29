@@ -126,11 +126,11 @@ public class SessionManager implements SessionManagerInterface {
 				sessionName,useConfig);
 		sessions.addSession(newSession);
         
-        TestorySessionListener tsl = new TestorySessionListener(newSession);
-        newSession.addSessionListener(tsl);
-        TestoryRemotePanel trp = new TestoryRemotePanel();
-        trp.setSession(newSession);
-        trp.showWindow();
+//        TestorySessionListener tsl = new TestorySessionListener(newSession);
+//        newSession.addSessionListener(tsl);
+//        TestoryRemotePanel trp = new TestoryRemotePanel();
+//        trp.setSession(newSession);
+//        trp.showWindow();
         
 		return newSession;
 
