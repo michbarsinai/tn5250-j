@@ -1776,8 +1776,8 @@ public class Screen5250 {
 
 	/**
 	 * I got this information from a tcp trace of each error. I could not find
-	 * any documenation for this. Maybe there is but I could not find it. If
-	 * anybody finds this documention could you please send me a copy. Please
+	 * any documentation for this. Maybe there is but I could not find it. If
+	 * anybody finds this documentation could you please send me a copy. Please
 	 * note that I did not look that hard either.
 	 * <p>
 	 * 0000: 00 50 73 1D 89 81 00 50 DA 44 C8 45 08 00 45 00 .Ps....P.D.E..E.
@@ -2429,7 +2429,7 @@ public class Screen5250 {
 	}
 
 	/**
-	 * Convinience class to position to the next field on the screen.
+	 * Convenience class to position to the next field on the screen.
 	 */
 	private void gotoFieldNext() {
 
@@ -2443,7 +2443,7 @@ public class Screen5250 {
 	}
 
 	/**
-	 * Convinience class to position to the previous field on the screen.
+	 * Convenience class to position to the previous field on the screen.
 	 */
 	private void gotoFieldPrev() {
 
@@ -2785,7 +2785,7 @@ public class Screen5250 {
 
 	public void dumpScreen() {
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		char[] s = getScreenAsChars();
 		int c = getColumns();
 		int l = getRows() * c;

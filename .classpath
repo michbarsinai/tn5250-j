@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="lib/runtime/mailapi.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/smtp.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/panelmatic-0.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

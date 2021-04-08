@@ -53,6 +53,7 @@
         <pack name="Emulator" required="yes">
             <description>A 5250 Telnet emulator written in Java</description>
             <file targetdir="$INSTALL_PATH/lib" src="installer/tn5250j.jar"/>
+            <file targetdir="$INSTALL_PATH/lib" src="installer/panelmatic-0.9.jar"/>
             <file targetdir="$INSTALL_PATH" src="installer/COPYING"/>
             <file targetdir="$INSTALL_PATH" src="installer/readme.txt"/>
             <file targetdir="$INSTALL_PATH" src="installer/filetransfers.txt"/>
