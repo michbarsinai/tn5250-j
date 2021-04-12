@@ -84,7 +84,7 @@ public class ServerMgr extends WebCtrl {
                     String[] compArr = path.split("/",-1);
                     List<String> comps = new LinkedList<>(Arrays.asList(compArr));
                     comps.remove(0); // first element always empty (>/<XXXX)
-                    comps.remove(0); // sessions is now deleted
+                    comps.remove(0); // "sessions" is now deleted
                     String sessionName = comps.remove(0);
                     SessionCtrl asc = activeSessions.get(sessionName);
                     if ( asc != null ) {

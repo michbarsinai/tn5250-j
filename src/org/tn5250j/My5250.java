@@ -84,7 +84,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	private int step;
 	private StringBuilder viewNamesForNextStartBuilder = null;
 
-	private TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
+	private static final TN5250jLogger LOG = TN5250jLogFactory.getLogger(My5250.class);
 
 	My5250 () {
         
@@ -105,17 +105,17 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		splash.setVisible(true);
 
 		loadLookAndFeel();
-        log.info("LaF OK");
+        LOG.info("LaF OK");
        
 		loadSessions();
-        log.info("Sessions OK");
+        LOG.info("Sessions OK");
 		splash.updateProgress(++step);
 
 		initJarPaths();
-        log.info("Jar Paths OK");
+        LOG.info("Jar Paths OK");
 
 		initScripting();
-        log.info("Scripting OK");
+        LOG.info("Scripting OK");
 
 		// sets the starting frame type.  At this time there are tabs which is
 		//    default and Multiple Document Interface.
@@ -124,24 +124,24 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		frames = new ArrayList<>();
 
 		newView();
-        log.info("newView OK");
+        LOG.info("newView OK");
 
 		setDefaultLocale();
 		manager = SessionManager.instance();
-        log.info("Session Manager OK");
+        LOG.info("Session Manager OK");
 		splash.updateProgress(++step);
         
         ServerMgr webSvr = new ServerMgr(manager, sessions, this);
         try {
             webSvr.start();
-            log.info("HTTP OK");
+            LOG.info("HTTP OK");
         } catch (IOException ex) {
             Logger.getLogger(My5250.class.getName()).log(Level.SEVERE, "Cannot start web server", ex);
         }
 		
         splash.updateProgress(++step);
 		Tn5250jController.getCurrent();
-        log.info("Ctor DONE");
+        LOG.info("Ctor DONE");
         
 	}
 
@@ -206,8 +206,9 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		return false;
 	}
 
+    @Override
 	public void bootOptionsReceived(BootEvent bootEvent) {
-		log.info(" boot options received " + bootEvent.getNewSessionOptions());
+		LOG.info(" boot options received " + bootEvent.getNewSessionOptions());
 
 		// reload setting, to ensure correct bootstraps
 		ConfigureFactory.getInstance().reloadSettings();
@@ -227,56 +228,38 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 					parseArgs(sessions.getProperty(sd), args);
 					final String[] args2 = args;
 					final String sd2 = sd;
-					SwingUtilities.invokeLater(
-							new Runnable () {
-								public void run() {
-									newSession(sd2,args2);
-
-								}
-							}
-					);
+					SwingUtilities.invokeLater(() -> {
+                        newSession(sd2,args2);
+                    });
 				}
 			}
 			else {
 
 				if (args[0].startsWith("-")) {
-					SwingUtilities.invokeLater(
-							new Runnable () {
-								public void run() {
-									startNewSession();
-
-								}
-							}
-					);
+					SwingUtilities.invokeLater(() -> {
+                        startNewSession();
+                    });
 				}
 				else {
 					final String[] args2 = args;
 					final String sd2 = args[0];
-					SwingUtilities.invokeLater(
-							new Runnable () {
-								public void run() {
-									newSession(sd2,args2);
-
-								}
-							}
-					);
+					SwingUtilities.invokeLater(() -> {
+                        newSession(sd2,args2);
+                    });
 				}
 			}
 		}
 		else {
-			SwingUtilities.invokeLater(
-					new Runnable () {
-						public void run() {
-							startNewSession();
-
-						}
-					}
-			);
+			SwingUtilities.invokeLater(() -> {
+                startNewSession();
+            });
 		}
 	}
 
 	static public void main(String[] args) {
-
+        
+        System.out.println("Version 2021-04-12");
+        
 		if (!isSpecified("-nc",args)) {
 
 			if (!checkBootStrapper(args)) {
@@ -743,8 +726,8 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 
 		Sessions sess = manager.getSessions();
 
-		if (log.isDebugEnabled()) {
-			log.debug("number of active sessions we have " + sess.getCount());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("number of active sessions we have " + sess.getCount());
 		}
 
 		if (viewNamesForNextStartBuilder == null) {
@@ -768,11 +751,11 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 		frames.remove(view);
 		view.dispose();
 
-		if (log.isDebugEnabled()) {
-			log.debug("number of active sessions we have after shutting down " + sess.getCount());
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("number of active sessions we have after shutting down " + sess.getCount());
 		}
 
-		log.info("view settings " + viewNamesForNextStartBuilder);
+		LOG.info("view settings " + viewNamesForNextStartBuilder);
 		if (sess.getCount() == 0) {
 
 			sessions.setProperty("emul.width",Integer.toString(view.getWidth()));
@@ -896,12 +879,12 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 			 Class.forName("org.tn5250j.scripting.JPythonInterpreterDriver");
 		 }
 		 catch (java.lang.NoClassDefFoundError ncdfe) {
-			 log.warn("Information Message: Can not find scripting support"
+			 LOG.warn("Information Message: Can not find scripting support"
 					 + " files, scripting will not be available: "
 					 + "Failed to load interpreter drivers " + ncdfe);
 		 }
 		 catch (Exception ex) {
-			 log.warn("Information Message: Can not find scripting support"
+			 LOG.warn("Information Message: Can not find scripting support"
 					 + " files, scripting will not be available: "
 					 + "Failed to load interpreter drivers " + ex);
 		 }

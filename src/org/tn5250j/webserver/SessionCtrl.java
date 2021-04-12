@@ -39,13 +39,18 @@ public class SessionCtrl extends WebCtrl {
 
     public void handle(List<String> path, HttpExchange exchange) throws IOException {
         String actionName = path.remove(0);
-        switch (actionName) {
-            case "keys":  sendKeys(exchange); break;
-            case "text":  getScreenText(exchange); break;
-            case "fields":  handleFields(path,exchange); break;
-            case "image": grabScreenImage(exchange); break;
-            default:
-                sendText(404, "No action '"+actionName+"' for this session", exchange);
+        try {
+            switch (actionName) {
+                case "keys":  sendKeys(exchange); break;
+                case "text":  getScreenText(exchange); break;
+                case "fields":  handleFields(path,exchange); break;
+                case "image": grabScreenImage(exchange); break;
+                default:
+                    sendText(404, "No action '"+actionName+"' for this session", exchange);
+            }
+        } catch ( Exception ex ) {
+            log.warn("Error handling exception", ex);
+            sendText(404, "error: " + ex.getMessage(), exchange);
         }
     }
 
@@ -80,10 +85,15 @@ public class SessionCtrl extends WebCtrl {
     }
 
     private void sendKeys(HttpExchange exchange) throws IOException {
-        String keysToSend = readRequestText(exchange);
-        log.info(sessionKey + ": sending keys '" + keysToSend + "'");
-        panel.getScreen().sendKeys(keysToSend);
-        sendText(200,"keys sent OK", exchange);
+        try {
+            String keysToSend = readRequestText(exchange);
+            log.info(sessionKey + ": sending keys '" + keysToSend + "'");
+            panel.getScreen().sendKeys(keysToSend);
+            sendText(200,"keys sent OK", exchange);
+        } catch ( Exception ex ) {
+            log.warn("Error handling exception in sendkeys: ", ex);
+            sendText(500, "Error: " + ex.getMessage(), exchange);
+        }
     }
     
     private void handleFields( List<String> path, HttpExchange exchange ) throws IOException {
