@@ -23,10 +23,12 @@ import javax.swing.border.EmptyBorder;
 import io.codeworth.panelmatic.*;
 import io.codeworth.panelmatic.PanelBuilder.HeaderLevel;
 import io.codeworth.panelmatic.componentbehavior.Modifiers;
+import io.codeworth.panelmatic.util.PanelPostProcessors;
+import java.io.PrintStream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import org.tn5250j.event.ScreenOIAListener;
 import org.tn5250j.framework.tn5250.Screen5250;
+import org.tn5250j.framework.tn5250.ScreenField;
 import org.tn5250j.framework.tn5250.ScreenFields;
 import org.tn5250j.framework.tn5250.ScreenOIA;
 import org.tn5250j.tools.logging.TN5250jLogFactory;
@@ -122,7 +124,7 @@ public class TestoryRemotePanel {
             .get((PanelPostProcessor) (JComponent jc) -> {
                 Border padding = new EmptyBorder(8, 8, 8, 8);
                 jc.setBorder(padding);
-                return jc;
+                return PanelPostProcessors.wrapInScrollPane(Boolean.FALSE, Boolean.TRUE).process(jc);
             });
     }
 
@@ -136,7 +138,9 @@ public class TestoryRemotePanel {
             ScreenFields screenFields = screen.getScreenFields();
             if (screenFields != null) {
                 Arrays.asList(screenFields.getFields()).forEach(f -> {
-                    fieldBtnCtnr.add(new JButton("field #" + f.getFieldId() + ":" + f.getString()));
+                    final JButton fldButton = new JButton("field #" + f.getFieldId() + ":" + f.getString());
+                    fldButton.addActionListener(a -> dumpField(f));
+                    fieldBtnCtnr.add(fldButton);
                 });
                 fieldBtnCtnr.invalidate();
             }
@@ -178,5 +182,48 @@ public class TestoryRemotePanel {
         }
         
         return sb.toString();
+    }
+    
+    private void dumpField( ScreenField f ) {
+        final PrintStream out = System.out;
+        out.println("Field Data");
+        out.println("==========");
+        out.println("id:\t" + f.getFieldId());
+        out.println("startPos:\t" + f.startPos());
+        out.println("endPos:\t" + f.endPos());
+        out.println("startCol:\t" + f.startCol());
+        out.println("startRow:\t" + f.startRow());
+        out.println("adjustment:\t" + f.getAdjustment());
+        out.println("attr:\t" + f.getAttr());
+        out.println("CurrentPos:\t" + f.getCurrentPos());
+        out.println("CursorCol:\t" + f.getCursorCol());
+        out.println("CursorProgression:\t" + f.getCursorProgression());
+        out.println("getCursorRow:\t" + f.getCursorRow());
+        out.println("FCW1:\t" + f.getFCW1());
+        out.println("FCW2:\t" + f.getFCW2());
+        out.println("FFW1:\t" + f.getFFW1());
+        out.println("FFW2:\t" + f.getFFW2());
+        out.println("FieldLength:\t" + f.getFieldLength());
+        out.println("FieldShift:\t" + f.getFieldShift());
+        out.println("HighlightedAttr:\t" + f.getHighlightedAttr());
+        out.println("Length:\t" + f.getLength());
+        out.println("isAutoEnter:\t" + f.isAutoEnter());
+        out.println("isBypassField:\t" + f.isBypassField());
+        out.println("isContinued:\t" + f.isContinued());
+        out.println("isContinuedFirst:\t" + f.isContinuedFirst());
+        out.println("isContinuedMiddle:\t" + f.isContinuedMiddle());
+        out.println("isContinuedLast:\t" + f.isContinuedLast());
+        out.println("isDupEnabled:\t" + f.isDupEnabled());
+        out.println("isFER:\t" + f.isFER());
+        out.println("isHiglightedEntry:\t" + f.isHiglightedEntry());
+        out.println("isMandatoryEnter:\t" + f.isMandatoryEnter());
+        out.println("isNumeric:\t" + f.isNumeric());
+        out.println("isRightToLeft:\t" + f.isRightToLeft());
+        out.println("isSelectionField:\t" + f.isSelectionField());
+        out.println("isSignedNumeric:\t" + f.isSignedNumeric());
+        out.println("isToUpper:\t" + f.isToUpper());
+        out.println("Content:");
+        out.println(f.getString());
+        out.println("==========");
     }
 }

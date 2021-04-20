@@ -19,7 +19,7 @@ public abstract class WebCtrl {
     private final TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
     
     protected void sendText( int code, String text, HttpExchange exchange ) throws IOException {
-        exchange.getResponseHeaders().set("Content-Type", "text/plain");
+        exchange.getResponseHeaders().set("Content-Type", "text/plain;charset=UTF-8");
         exchange.sendResponseHeaders(code, (text!=null) ? text.length(): -1);
         try (OutputStream os = exchange.getResponseBody()) {
             if ( text != null ) os.write(text.getBytes());

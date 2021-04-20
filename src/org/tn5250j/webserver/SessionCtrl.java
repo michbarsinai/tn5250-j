@@ -146,6 +146,7 @@ public class SessionCtrl extends WebCtrl {
                     case "PUT":
                         String keys = readRequestText(exchange);
                         fld.setString(keys);
+                        panel.getScreen().updateScreen();
                         sendText(200,"Set string of field " + fld.getFieldId() + " to '" + keys + "'", exchange);
                         break;
                     case "GET":
