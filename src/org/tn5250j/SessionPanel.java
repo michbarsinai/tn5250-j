@@ -21,11 +21,19 @@
  */
 package org.tn5250j;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,8 +83,8 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 	protected TNRubberBand rubberband;
 	private KeypadPanel keypadPanel;
 	private String newMacName;
-	private Vector<SessionJumpListener> sessionJumpListeners = null;
-	private Vector<EmulatorActionListener> actionListeners = null;
+	private List<SessionJumpListener> sessionJumpListeners = null;
+	private List<EmulatorActionListener> actionListeners = null;
 	private boolean macroRunning;
 	private boolean stopMacro;
 	private boolean doubleClick;
@@ -478,7 +486,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 			final SessionJumpEvent jumpEvent = new SessionJumpEvent(this);
 			jumpEvent.setJumpDirection(dir);
 			for (int i = 0; i < size; i++) {
-				SessionJumpListener target = sessionJumpListeners.elementAt(i);
+				SessionJumpListener target = sessionJumpListeners.get(i);
 				target.onSessionJump(jumpEvent);
 			}
 		}
@@ -494,7 +502,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 		if (actionListeners != null) {
 			int size = actionListeners.size();
 			for (int i = 0; i < size; i++) {
-				EmulatorActionListener target =	actionListeners.elementAt(i);
+				EmulatorActionListener target =	actionListeners.get(i);
 				EmulatorActionEvent sae = new EmulatorActionEvent(this);
 				sae.setAction(action);
 				target.onEmulatorAction(sae);
@@ -718,7 +726,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 	 * @param which formatting option to use
 	 * @return vector string of numeric values
 	 */
-	protected final Vector<Double> sumThem(boolean which) {
+	protected final java.util.Vector<Double> sumThem(boolean which) {
 		log.debug("Summing");
 		return screen.sumThem(which, getBoundingArea());
 	}
@@ -746,9 +754,9 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 	public synchronized void addSessionJumpListener(SessionJumpListener listener) {
 
 		if (sessionJumpListeners == null) {
-			sessionJumpListeners = new java.util.Vector<SessionJumpListener>(3);
+			sessionJumpListeners = new ArrayList<>(3);
 		}
-		sessionJumpListeners.addElement(listener);
+		sessionJumpListeners.add(listener);
 
 	}
 
@@ -761,7 +769,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 		if (sessionJumpListeners == null) {
 			return;
 		}
-		sessionJumpListeners.removeElement(listener);
+		sessionJumpListeners.remove(listener);
 
 	}
 
@@ -773,9 +781,9 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 	public synchronized void addEmulatorActionListener(EmulatorActionListener listener) {
 
 		if (actionListeners == null) {
-			actionListeners = new java.util.Vector<EmulatorActionListener>(3);
+			actionListeners = new ArrayList<>(3);
 		}
-		actionListeners.addElement(listener);
+		actionListeners.add(listener);
 
 	}
 
@@ -788,7 +796,7 @@ public class SessionPanel extends JPanel implements RubberBandCanvasIF, SessionC
 		if (actionListeners == null) {
 			return;
 		}
-		actionListeners.removeElement(listener);
+		actionListeners.remove(listener);
 
 	}
 

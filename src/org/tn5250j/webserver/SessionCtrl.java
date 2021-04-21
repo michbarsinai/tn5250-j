@@ -114,9 +114,24 @@ public class SessionCtrl extends WebCtrl {
                         panel.getScreen().getScreenFields().gotoFieldNext(); 
                         exchange.getRequestBody().close();
                         break;
-                        
+                    
                     default:
-                        sendText(400, "accepted values: prev, next", exchange);
+                        try {
+                            int fieldId = Integer.parseInt(content.trim());
+                            final Screen5250 screen = panel.getSession().getScreen();
+                            int fieldCount = screen.getScreenFields().getFieldCount();
+                            if ( fieldId <= fieldCount ) {
+                                if ( screen.gotoField(fieldId) ) {
+                                    sendText(200, "At field " + fieldId, exchange);
+                                } else {
+                                    sendText(500, "Cannot move to " + fieldId, exchange);
+                                }
+                            } else {
+                                sendText(404, "Max field count is " + fieldCount + ", field " + fieldId + " not found.", exchange);
+                            }
+                        } catch (NumberFormatException nfe) {
+                            sendText(400, "accepted values: prev, next, numeric field id", exchange);                        
+                        }
                 }
                 
             } else {
@@ -180,19 +195,42 @@ public class SessionCtrl extends WebCtrl {
 
     private JSONObject fld2Json(ScreenField fld, final ScreenFields screenFields) throws JSONException {
         JSONObject obj = new JSONObject();
-        obj.put("id", fld.getFieldId() );
-        obj.put("fcw1", fld.getFCW1());
-        obj.put("fcw2", fld.getFCW2());
-        obj.put("ffw1", fld.getFFW1());
-        obj.put("ffw2", fld.getFFW2());
-        obj.put("text", fld.getString());
-        obj.put("attr", fld.getAttr());
-        obj.put("shift", fld.getFieldShift());
-        obj.put("length", fld.getFieldLength());
-        obj.put("is_RTL", fld.isRightToLeft());
-        obj.put("adjustment", fld.getAdjustment());
+        obj.put("id", fld.getFieldId());
         obj.put("is_current", (screenFields.getCurrentField().getFieldId()==fld.getFieldId()));
-        obj.put("is_mandatory", fld.isMandatoryEnter());
+        obj.put("startPos", fld.startPos());
+        obj.put("endPos", fld.endPos());
+        obj.put("startCol", fld.startCol());
+        obj.put("startRow", fld.startRow());
+        obj.put("adjustment", fld.getAdjustment());
+        obj.put("attr", fld.getAttr());
+        obj.put("CurrentPos", fld.getCurrentPos());
+        obj.put("CursorCol", fld.getCursorCol());
+        obj.put("CursorProgression", fld.getCursorProgression());
+        obj.put("getCursorRow", fld.getCursorRow());
+        obj.put("FCW1", fld.getFCW1());
+        obj.put("FCW2", fld.getFCW2());
+        obj.put("FFW1", fld.getFFW1());
+        obj.put("FFW2", fld.getFFW2());
+        obj.put("FieldLength", fld.getFieldLength());
+        obj.put("FieldShift", fld.getFieldShift());
+        obj.put("HighlightedAttr", fld.getHighlightedAttr());
+        obj.put("Length", fld.getLength());
+        obj.put("isAutoEnter", fld.isAutoEnter());
+        obj.put("isBypassField", fld.isBypassField());
+        obj.put("isContinued", fld.isContinued());
+        obj.put("isContinuedFirst", fld.isContinuedFirst());
+        obj.put("isContinuedMiddle", fld.isContinuedMiddle());
+        obj.put("isContinuedLast", fld.isContinuedLast());
+        obj.put("isDupEnabled", fld.isDupEnabled());
+        obj.put("isFER", fld.isFER());
+        obj.put("isHiglightedEntry", fld.isHiglightedEntry());
+        obj.put("isMandatoryEnter", fld.isMandatoryEnter());
+        obj.put("isNumeric", fld.isNumeric());
+        obj.put("isRightToLeft", fld.isRightToLeft());
+        obj.put("isSelectionField", fld.isSelectionField());
+        obj.put("isSignedNumeric", fld.isSignedNumeric());
+        obj.put("isToUpper", fld.isToUpper());
+        obj.put("Content", fld.getString());
         return obj;
     }
 

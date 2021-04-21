@@ -23,10 +23,16 @@ import javax.swing.border.EmptyBorder;
 import io.codeworth.panelmatic.*;
 import io.codeworth.panelmatic.PanelBuilder.HeaderLevel;
 import io.codeworth.panelmatic.componentbehavior.Modifiers;
+import io.codeworth.panelmatic.util.Groupings;
 import io.codeworth.panelmatic.util.PanelPostProcessors;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.PrintStream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import org.tn5250j.framework.tn5250.Screen5250;
 import org.tn5250j.framework.tn5250.ScreenField;
 import org.tn5250j.framework.tn5250.ScreenFields;
@@ -67,6 +73,9 @@ public class TestoryRemotePanel {
     JButton sendBtn = new JButton("Send Keys");
     JTextArea screenTxt = new JTextArea();
     JComboBox<ScreenPlanes> planeCmb = new JComboBox<>();
+    JLabel lblScreenCoords = new JLabel();
+    JTextField txtClickAt = new JTextField();
+    JButton btnClickAt = new JButton("Click at:");
     private final TN5250jLogger log = TN5250jLogFactory.getLogger(this.getClass());
     
     Session5250 session ;
@@ -76,6 +85,19 @@ public class TestoryRemotePanel {
         updatePanel();
         session.getScreen().getOIA().addOIAListener((ScreenOIA oia, int change) -> {
             log.info("ScreenOIA change: " + change);
+            System.out.println("ScreenOIA change: " + change);
+        });
+        
+        session.getGUI().addMouseMotionListener(new MouseMotionAdapter(){
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int pos = session.getGUI().getPosFromView(e.getX(), e.getY());
+                int row = session.getScreen().getRow(pos);
+                int col = session.getScreen().getCol(pos);
+                final String mouseCoord = "r" + row + " c" + col + " p" + pos;
+
+                lblScreenCoords.setText(mouseCoord);
+            }
         });
     }
 
@@ -111,9 +133,15 @@ public class TestoryRemotePanel {
         planeCmb.setModel(model);
         planeCmb.setSelectedItem(ScreenPlanes.PLANE_TEXT);
         
+        lblScreenCoords.setFont( new Font(Font.MONOSPACED, Font.PLAIN, 12) );
+        
+        btnClickAt.addActionListener(this::clickAt);
+        
         return PanelMatic.begin()
-            .addHeader(HeaderLevel.H1, "Testory AS400 Remote")
+            .addHeader(HeaderLevel.H1, "Testory TN5250 Remote")
             .add(refreshBtn)
+            .add("Mouse pos", lblScreenCoords)
+            .add("Clicker", Groupings.lineGroup(btnClickAt, txtClickAt, new JLabel("r,c")) )
             .add("Fields", fieldBtnCtnr)
             .addHeader(HeaderLevel.H2, "Send Text")
             .add(keysTxt)
@@ -128,18 +156,37 @@ public class TestoryRemotePanel {
             });
     }
 
+    private void clickAt(ActionEvent e){
+        String coordStr = txtClickAt.getText();
+        String coord[] = coordStr.split(",");
+        switch ( coord.length ) {
+            case 1:
+                
+        }
+        if ( coord.length != 2 ) {
+            System.out.println("Bad coords");
+            return;
+        }
+        
+        session.getScreen().setCursor(
+            Integer.parseInt(coord[0].trim())+1,
+            Integer.parseInt(coord[1].trim())+1
+        );
+    }
+        
     private void updatePanel() {
         Screen5250 screen = session.getScreen();
 
         fieldBtnCtnr.removeAll();
         if (screen != null) {
-//            screen.dumpScreen();
-
             ScreenFields screenFields = screen.getScreenFields();
             if (screenFields != null) {
                 Arrays.asList(screenFields.getFields()).forEach(f -> {
                     final JButton fldButton = new JButton("field #" + f.getFieldId() + ":" + f.getString());
                     fldButton.addActionListener(a -> dumpField(f));
+                    if ( f.equals(screenFields.getCurrentField()) ) {
+                        fldButton.setText( "√ " + fldButton.getText() );
+                    }
                     fieldBtnCtnr.add(fldButton);
                 });
                 fieldBtnCtnr.invalidate();
@@ -185,6 +232,7 @@ public class TestoryRemotePanel {
     }
     
     private void dumpField( ScreenField f ) {
+        session.getScreen().gotoField(f.getFieldId());
         final PrintStream out = System.out;
         out.println("Field Data");
         out.println("==========");
