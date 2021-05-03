@@ -23,8 +23,8 @@ package org.tn5250j;
 
 public interface TN5250jConstants {
 
-  // Version information
-  String VERSION_INFO = "0.8.0-Snapshot";
+  // Version information - Sync with build.properties
+  String VERSION_INFO = "0.8.2-Snapshot";
 
   // STATE
   static final int STATE_DISCONNECTED = 0;

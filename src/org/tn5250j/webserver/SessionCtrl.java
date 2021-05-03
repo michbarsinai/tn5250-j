@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class SessionCtrl extends WebCtrl {
                 default:
                     sendText(404, "No action '"+actionName+"' for this session", exchange);
             }
-        } catch ( Exception ex ) {
+        } catch ( IOException ex ) {
             log.warn("Error handling exception", ex);
             sendText(404, "error: " + ex.getMessage(), exchange);
         }
@@ -73,10 +74,10 @@ public class SessionCtrl extends WebCtrl {
         char[] content = scrn.getScreenAsChars();
         int screenWidth = scrn.getColumns();
         
-        exchange.getResponseHeaders().set("Content-Type", "text/plain");
+        exchange.getResponseHeaders().set("Content-Type", "text/plain;charset=UTF-8");
         exchange.sendResponseHeaders(200, 0);
         
-        try ( BufferedWriter out = new BufferedWriter(new OutputStreamWriter(exchange.getResponseBody())) ) {
+        try ( BufferedWriter out = new BufferedWriter(new OutputStreamWriter(exchange.getResponseBody(), StandardCharsets.UTF_8)) ) {
             for ( int pos=0; pos<content.length; pos+=screenWidth ) {
                 out.write( new String(content, pos, screenWidth) );
                 out.write("\n");
@@ -90,7 +91,7 @@ public class SessionCtrl extends WebCtrl {
             log.info(sessionKey + ": sending keys '" + keysToSend + "'");
             panel.getScreen().sendKeys(keysToSend);
             sendText(200,"keys sent OK", exchange);
-        } catch ( Exception ex ) {
+        } catch ( IOException ex ) {
             log.warn("Error handling exception in sendkeys: ", ex);
             sendText(500, "Error: " + ex.getMessage(), exchange);
         }
@@ -203,18 +204,18 @@ public class SessionCtrl extends WebCtrl {
         obj.put("startRow", fld.startRow());
         obj.put("adjustment", fld.getAdjustment());
         obj.put("attr", fld.getAttr());
-        obj.put("CurrentPos", fld.getCurrentPos());
-        obj.put("CursorCol", fld.getCursorCol());
-        obj.put("CursorProgression", fld.getCursorProgression());
+        obj.put("currentPos", fld.getCurrentPos());
+        obj.put("cursorCol", fld.getCursorCol());
+        obj.put("cursorProgression", fld.getCursorProgression());
         obj.put("getCursorRow", fld.getCursorRow());
         obj.put("FCW1", fld.getFCW1());
         obj.put("FCW2", fld.getFCW2());
         obj.put("FFW1", fld.getFFW1());
         obj.put("FFW2", fld.getFFW2());
-        obj.put("FieldLength", fld.getFieldLength());
-        obj.put("FieldShift", fld.getFieldShift());
-        obj.put("HighlightedAttr", fld.getHighlightedAttr());
-        obj.put("Length", fld.getLength());
+        obj.put("fieldLength", fld.getFieldLength());
+        obj.put("fieldShift", fld.getFieldShift());
+        obj.put("highlightedAttr", fld.getHighlightedAttr());
+        obj.put("length", fld.getLength());
         obj.put("isAutoEnter", fld.isAutoEnter());
         obj.put("isBypassField", fld.isBypassField());
         obj.put("isContinued", fld.isContinued());
@@ -230,7 +231,7 @@ public class SessionCtrl extends WebCtrl {
         obj.put("isSelectionField", fld.isSelectionField());
         obj.put("isSignedNumeric", fld.isSignedNumeric());
         obj.put("isToUpper", fld.isToUpper());
-        obj.put("Content", fld.getString());
+        obj.put("content", fld.getString());
         return obj;
     }
 

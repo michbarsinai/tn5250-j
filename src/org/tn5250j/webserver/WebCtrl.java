@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 import org.tn5250j.tools.logging.TN5250jLogFactory;
@@ -22,7 +23,7 @@ public abstract class WebCtrl {
         exchange.getResponseHeaders().set("Content-Type", "text/plain;charset=UTF-8");
         exchange.sendResponseHeaders(code, (text!=null) ? text.length(): -1);
         try (OutputStream os = exchange.getResponseBody()) {
-            if ( text != null ) os.write(text.getBytes());
+            if ( text != null ) os.write(text.getBytes(StandardCharsets.UTF_8));
         }
     }
     

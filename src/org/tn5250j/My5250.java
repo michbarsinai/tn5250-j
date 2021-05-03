@@ -91,9 +91,11 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
         BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = img.createGraphics();
         
-        g.setColor(Color.CYAN);
+        g.setColor(Color.GREEN);
+        g.setFont( new Font(Font.MONOSPACED, Font.BOLD, 16));
+        g.drawString("IBM AS400/System I/TN5250", 10, 50);
         g.setFont( new Font(Font.MONOSPACED, Font.PLAIN, 16));
-        g.drawString("IBM AS400/System I", 10, 50);
+        g.drawString("Testory Technologies", 10, 70);
         
         g.dispose();
         
@@ -397,7 +399,7 @@ public class My5250 implements BootListener, SessionListener, EmulatorActionList
 	}
 
 	static List<String> loadLastSessionViewNames() {
-		List<String> sessionNames = new ArrayList<String>();
+		List<String> sessionNames = new ArrayList<>();
 		if (sessions.containsKey("emul.startLastView")) {
 			String emulview = sessions.getProperty("emul.view", "");
 			int idxstart = 0;

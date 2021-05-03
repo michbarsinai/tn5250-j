@@ -26,7 +26,6 @@ import io.codeworth.panelmatic.componentbehavior.Modifiers;
 import io.codeworth.panelmatic.util.Groupings;
 import io.codeworth.panelmatic.util.PanelPostProcessors;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.PrintStream;
@@ -92,8 +91,8 @@ public class TestoryRemotePanel {
             @Override
             public void mouseMoved(MouseEvent e) {
                 int pos = session.getGUI().getPosFromView(e.getX(), e.getY());
-                int row = session.getScreen().getRow(pos);
-                int col = session.getScreen().getCol(pos);
+                int row = session.getScreen().getRow(pos) + 1;
+                int col = session.getScreen().getCol(pos) + 1;
                 final String mouseCoord = "r" + row + " c" + col + " p" + pos;
 
                 lblScreenCoords.setText(mouseCoord);
@@ -136,12 +135,14 @@ public class TestoryRemotePanel {
         lblScreenCoords.setFont( new Font(Font.MONOSPACED, Font.PLAIN, 12) );
         
         btnClickAt.addActionListener(this::clickAt);
+        txtClickAt.addActionListener(this::clickAt);
         
         return PanelMatic.begin()
             .addHeader(HeaderLevel.H1, "Testory TN5250 Remote")
             .add(refreshBtn)
             .add("Mouse pos", lblScreenCoords)
             .add("Clicker", Groupings.lineGroup(btnClickAt, txtClickAt, new JLabel("r,c")) )
+            .addHeader(HeaderLevel.H6, "r, c are 1-based, pos is 0-based")
             .add("Fields", fieldBtnCtnr)
             .addHeader(HeaderLevel.H2, "Send Text")
             .add(keysTxt)
@@ -169,8 +170,8 @@ public class TestoryRemotePanel {
         }
         
         session.getScreen().setCursor(
-            Integer.parseInt(coord[0].trim())+1,
-            Integer.parseInt(coord[1].trim())+1
+            Integer.parseInt(coord[0].trim()),
+            Integer.parseInt(coord[1].trim())
         );
     }
         
